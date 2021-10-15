@@ -1,2 +1,16 @@
 # emr-cluster-manager
-A cluster manager for EMR
+
+A simple tool for EMR cluster management. 
+
+ !!! Work in progress !!!
+
+Action Plan:
+
+* Web Api (tornado or flask based) to manager clusters
+* Cluster Lifecycle
+* Cluster configurations based on a database
+* Spark Optimizations
+* Docker Image
+* Configuration with Dynaconf
+* Powered by boto3
+* Integration with Airflow
