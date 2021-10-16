@@ -14,3 +14,16 @@ Action Plan:
 * Configuration with Dynaconf
 * Powered by boto3
 * Integration with Airflow
+
+# Configuration
+
+Set .secret.toml with this configurations:
+
+aws_profile = "value"
+
+or 
+
+aws_access_key = "value"
+aws_secret_key = "value"
+
+Without any this configurations, will be used a default role configurations (Like running EC2 instance)

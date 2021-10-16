@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 dynaconf = "==3.1.7"
+bs4 = "*"
+requests = "*"
 
 [dev-packages]
 
