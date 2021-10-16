@@ -16,8 +16,8 @@ def get_metastore(path: str = None) -> None:
         n_path = settings.file_instance_dump
     else:
         n_path = path
-    
-    with open(settings.file_instance_dump,'rb') as fl:
+
+    with open(n_path,'rb') as fl:
         return pickle.load(fl, encoding='bytes')
 
 

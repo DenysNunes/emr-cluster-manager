@@ -27,3 +27,10 @@ aws_access_key = "value"
 aws_secret_key = "value"
 
 Without any this configurations, will be used a default role configurations (Like running EC2 instance)
+
+
+# Testing 
+
+pipenv shell
+
+
