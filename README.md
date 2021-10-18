@@ -32,5 +32,3 @@ Without any this configurations, will be used a default role configurations (Lik
 # Testing 
 
 pipenv shell
-
-
