@@ -6,9 +6,9 @@ A simple tool for EMR cluster management.
 
 Action Plan:
 
-* Web Api (tornado or flask based) to manager clusters
+* Web Api to manager clusters
 * Cluster Lifecycle
-* Cluster configurations based on a database
+* Running Cluster over configurations
 * Spark Optimizations
 * Docker Image
 * Configuration with Dynaconf
