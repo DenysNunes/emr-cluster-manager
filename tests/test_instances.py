@@ -10,10 +10,10 @@ from metastore import instances as ins
 
 
 def test_instance_set():
-    path = 'test_inst.pickle'
+    path = 'tests/dbtest_inst.pickle'
     assert ins.set_metastore(path) != ""
 
 
 def test_instance_get():
-    path = 'test_inst.pickle'
+    path = 'tests/dbtest_inst.pickle'
     assert type(ins.get_metastore(path)) == dict

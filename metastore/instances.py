@@ -12,18 +12,23 @@ logger.setLevel(logging.INFO)
 
 def get_metastore(path: str = None) -> None:
     # Setting path
-    if path is None:
+    if path is None:        
         n_path = settings.file_instance_dump
     else:
         n_path = path
 
-    with open(n_path,'rb') as fl:
-        return pickle.load(fl, encoding='bytes')
+    try:
+        with open(n_path,'rb') as fl:
+            return pickle.load(fl, encoding='bytes')
+    except:
+        set_metastore()
+        m = get_metastore()
+        return m
 
 
 def set_metastore(path: str = None) -> str:
-    yarn_data_url = "https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hadoop-task-config.html"
-    cores_data_url = "https://aws.amazon.com/pt/ec2/instance-types/"
+    yarn_data_url = "http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hadoop-task-config.html"
+    cores_data_url = "http://aws.amazon.com/pt/ec2/instance-types/"
 
     # Crawling YARN Instance Data
     logger.info("Crawling YARN data from AWS source ({})".format(yarn_data_url))
