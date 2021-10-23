@@ -10,23 +10,6 @@ import pickle
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-
-#def get_metastore(path: str = None) -> None:
-#    # Setting path
-#    if path is None:        
-#        n_path = settings.file_instance_dump
-#    else:
-#        n_path = path
-
-#    try:   
-#        with open(n_path,'rb') as fl:
-#            return pickle.load(fl, encoding='bytes')
-#    except:
-#        set_metastore()
-#        m = get_metastore()
-#        return m
-
-
 def get_metastore() -> list[Instance]:
     yarn_data_url = "http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hadoop-task-config.html"
     cores_data_url = "http://aws.amazon.com/pt/ec2/instance-types/"

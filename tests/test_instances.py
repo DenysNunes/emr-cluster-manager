@@ -7,13 +7,8 @@ sys.path.insert(0, os.path.abspath(workspace_path))
 path = os.path.dirname(__file__)
 
 from metastore import instances as ins
+from models.base import Instance
 
-
-def test_instance_set():
-    path = 'tests/dbtest_inst.pickle'
-    assert ins.set_metastore(path) != ""
-
-
-def test_instance_get():
-    path = 'tests/dbtest_inst.pickle'
-    assert type(ins.get_metastore(path)) == dict
+def test_instance_get_metastore():
+    assert type(ins.get_metastore()) == list
+    assert type(ins.get_metastore()[0]) == Instance
