@@ -26,4 +26,4 @@ or
 aws_access_key = "value"
 aws_secret_key = "value"
 
-Without any this configurations, will be used a default role configurations (Like running EC2 instance)
+Without any this configurations, will be used a default role configurations (running in EC2 instance)

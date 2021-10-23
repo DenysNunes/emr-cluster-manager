@@ -1,2 +1,2 @@
-metastore_query = "sqlite:///metastore.db"
+metastore_query = "mysql+mysqldb://cluster_manager_user:default_password@127.0.0.1:3306/cluster_manager"
 port = 3000

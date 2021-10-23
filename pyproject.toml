@@ -17,6 +17,7 @@ requests = "^2.26.0"
 dynaconf = "^3.1.7"
 bs4 = "^0.0.1"
 SQLAlchemy = "^1.4.26"
+mysqlclient = "^2.0.3"
 
 [tool.poetry.dev-dependencies]
 
