@@ -1,4 +1,5 @@
 from config import settings
+from models.base import Instance
 from bs4 import BeautifulSoup
 
 import requests
@@ -10,23 +11,23 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-def get_metastore(path: str = None) -> None:
-    # Setting path
-    if path is None:        
-        n_path = settings.file_instance_dump
-    else:
-        n_path = path
+#def get_metastore(path: str = None) -> None:
+#    # Setting path
+#    if path is None:        
+#        n_path = settings.file_instance_dump
+#    else:
+#        n_path = path
 
-    try:
-        with open(n_path,'rb') as fl:
-            return pickle.load(fl, encoding='bytes')
-    except:
-        set_metastore()
-        m = get_metastore()
-        return m
+#    try:   
+#        with open(n_path,'rb') as fl:
+#            return pickle.load(fl, encoding='bytes')
+#    except:
+#        set_metastore()
+#        m = get_metastore()
+#        return m
 
 
-def set_metastore(path: str = None) -> str:
+def get_metastore() -> list[Instance]:
     yarn_data_url = "http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hadoop-task-config.html"
     cores_data_url = "http://aws.amazon.com/pt/ec2/instance-types/"
 
@@ -74,18 +75,21 @@ def set_metastore(path: str = None) -> str:
                     raw_instances[inst_type]['yarn.cores'] = int(inst_vcpu)
 
     # Removing Old Instances
-    instances = {}
+    instances = []
     for i in raw_instances:
         if 'yarn.cores' in raw_instances[i]:
-            instances[i] = raw_instances[i]
+            inst : Instance = Instance()
+            inst.instance_name = i 
+            inst.mapreduce_map_java_opts = raw_instances[i]['mapreduce.map.java.opts']
+            inst.mapreduce_reduce_java_opts = raw_instances[i]['mapreduce.reduce.java.opts']
+            inst.mapreduce_map_memory_mb = raw_instances[i]['mapreduce.map.memory.mb']
+            inst.mapreduce_reduce_memory_mb = raw_instances[i]['mapreduce.reduce.memory.mb']
+            inst.yarn_app_mapreduce_am_resource_mb = raw_instances[i]['yarn.app.mapreduce.am.resource.mb']
+            inst.yarn_scheduler_minimum_allocation_mb = raw_instances[i]['yarn.scheduler.minimum-allocation-mb']
+            inst.yarn_scheduler_maximum_allocation_mb = raw_instances[i]['yarn.scheduler.maximum-allocation-mb']
+            inst.yarn_nodemanager_resource_memory_mb = raw_instances[i]['yarn.nodemanager.resource.memory-mb']
+            inst.yarn_cores = raw_instances[i]['yarn.cores']
+            instances.append(inst)           
 
-    # Setting path
-    if path is None:
-        n_path = settings.file_instance_dump
-    else:
-        n_path = path
-
-    with open(n_path, 'wb') as fl:
-        pickle.dump(instances, fl)
-
-    return n_path
+  
+    return instances

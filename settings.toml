@@ -1,2 +1,2 @@
-file_instance_dump = "instances.pickle"
+metastore_query = "sqlite:///metastore.db"
 port = 3000
