@@ -6,7 +6,7 @@ from config import settings
 
 app = FastAPI()
 
-#db.init_database()
+db.init_database()
 
 @app.get("/instances/")
 async def instances(instance_name: Optional[str] = None):
