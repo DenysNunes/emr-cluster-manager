@@ -12,10 +12,6 @@ Session.configure(bind=engine)
 session = Session()
 
 
-def drop_all():
-	bs.Base.metadata.drop_all(bind=engine, tables=[bs.Cluster.__table__])
-	bs.Base.metadata.drop_all(bind=engine, tables=[bs.Cluster.__table__])
-
 def init_database():
     if session.query(bs.Instance).count() == 0:
         [session.add(i) for i in inst.get_metastore()]
