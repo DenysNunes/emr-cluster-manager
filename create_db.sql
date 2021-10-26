@@ -1,3 +1,5 @@
+-- Script to create a database structure.
+
 CREATE DATABASE cluster_manager;
 
 CREATE USER 'cluster_manager_user'@localhost IDENTIFIED BY 'default_password';

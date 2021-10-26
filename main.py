@@ -1,30 +1,30 @@
 from fastapi import FastAPI, HTTPException
 from typing import Optional
 from metastore import base as bs, db
-from model import models, schemas
-from config import settings
+from model import schemas
+from typing import List
 
 app = FastAPI()
 
 bs.init_database()
 
 @app.post("/instances/", response_model=schemas.Instance)
-async def instances(instance: schemas.Instance):
-    db.create_instance(instance)
+async def instances(inst: schemas.Instance):
+    r = db.create_instance(bs.session, inst)    
+    return r
 
-    if instance:
-        raise HTTPException(status_code=400, detail="Email already registered")
-    
-    return db.create_instance(instance=instance)
 
-#@app.get("/clusters/")
-#async def clusters(cluster_profile: Optional[str] = None):
-#    if cluster_profile:
-#        clust = db.session.query(bs.Cluster).filter_by(cluster_profile=cluster_profile).first()
+@app.get("/instances/", response_model=List[schemas.Instance])
+async def instances(instance_name: Optional[str] = None):
+    return db.get_instances(bs.session, instance_name)
 
-#        if clust:
-#            return {"clusters": [clust.json()]}
-#        else:
-#            return {"clusters": {}}        
-#    else:
-#        return {"clusters" : [i.json() for i in db.session.query(bs.Cluster).all()]}
+
+@app.post("/clusters/", response_model=schemas.Cluster)
+async def clusters(clst: schemas.Cluster):
+    r = db.create_cluster(bs.session, clst)    
+    return r
+
+
+@app.get("/clusters/", response_model=List[schemas.Cluster])
+async def clusters(cluster_profile: Optional[str] = None):
+    return db.get_clusters(bs.session, cluster_profile)   

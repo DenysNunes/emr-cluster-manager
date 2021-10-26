@@ -1,5 +1,5 @@
 from config import settings
-from models.base import Instance
+from model.models import Instance
 from bs4 import BeautifulSoup
 
 import requests

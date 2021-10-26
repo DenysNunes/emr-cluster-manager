@@ -2,10 +2,14 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from config import settings
 from metastore import instances as inst
-from models import base as bs
+from model import models
+from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine(settings.metastore_query, echo=True)    
-bs.Base.metadata.create_all(engine)
+
+Base = declarative_base()
+
+engine = create_engine(settings.metastore_query, echo=True)  
+Base.metadata.create_all(engine)
 
 Session = sessionmaker()
 Session.configure(bind=engine)
@@ -13,12 +17,12 @@ session = Session()
 
 
 def init_database():
-    if session.query(bs.Instance).count() == 0:
+    if session.query(models.Instance).count() == 0:
         [session.add(i) for i in inst.get_metastore()]
         session.commit()
 
-    if session.query(bs.Cluster).count() == 0:
-        cluster : bs.Cluster = bs.Cluster()
+    if session.query(models.Cluster).count() == 0:
+        cluster : models.Cluster = models.Cluster()
         cluster.cluster_profile = "example_profile"
         cluster.bootstrap_path = "s3://example-bucket/myconfig/bootstrap.sh"
         cluster.slave_core_count_ondemand = 1

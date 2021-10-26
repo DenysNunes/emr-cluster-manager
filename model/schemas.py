@@ -24,8 +24,8 @@ class Cluster(BaseModel):
 	slave_core_count_ondemand : int
 	slave_task_count_instance : int
 	slave_task_count_ondemand : int
-	master_instance_id : Instance
-	slave_instance_id : Instance
+	master_instance_id : str
+	slave_instance_id : str
 	subnet_id : str
 	applications : str
 	spark_cores_per_executor : int
