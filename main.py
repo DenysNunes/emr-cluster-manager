@@ -6,6 +6,10 @@ from typing import List
 
 app = FastAPI()
 
+
+from core import cluster as c
+c.runjobflow("example_profile")
+
 bs.init_database()
 
 @app.post("/instances/", response_model=schemas.Instance)
@@ -25,6 +29,6 @@ async def clusters(clst: schemas.Cluster):
     return r
 
 
-@app.get("/clusters/", response_model=List[schemas.Cluster])
+@app.post("/jobflow/", response_model=List[schemas.Cluster])
 async def clusters(cluster_profile: Optional[str] = None):
     return db.get_clusters(bs.session, cluster_profile)   
