@@ -27,7 +27,8 @@ class Cluster(Base):
 	__tablename__ = 'clusters'
 
 	cluster_profile = Column(String(50), primary_key=True)
-	bootstrap_path = Column(String(150))
+	bootstrap_path = Column(String(200))
+	log_path = Column(String(200))
 	slave_core_count_ondemand = Column(Integer)
 	slave_task_count_ondemand = Column(Integer)
 	slave_task_count_spot = Column(Integer)
@@ -40,10 +41,14 @@ class Cluster(Base):
 	glue_hive_metastore = Column(Boolean)
 	glue_presto_metastore = Column(Boolean)
 	release_label = Column(String(10))
+	jobflow_role = Column(String(100))
+	service_role = Column(String(100))
 	tags = Column(String(150))
 
 	def __repr__(self):
 		return "Cluster " + self.cluster_profile
+
+
 
 
 engine = create_engine(settings.metastore_query, echo=True)  
@@ -62,6 +67,7 @@ def init_database():
 		cluster : Cluster = Cluster()
 		cluster.cluster_profile = "example_profile"
 		cluster.bootstrap_path = "s3://example-bucket/myconfig/bootstrap.sh"
+		cluster.log_path = "s3://example-bucket/emr-logs/"
 		cluster.slave_core_count_ondemand = 1
 		cluster.slave_task_count_ondemand = 0
 		cluster.slave_task_count_spot = 3
@@ -73,7 +79,10 @@ def init_database():
 		cluster.glue_spark_metastore = True
 		cluster.glue_hive_metastore = True
 		cluster.glue_presto_metastore = True
+		cluster.log_path = True
 		cluster.release_label = "emr-6.3.0"
+		cluster.jobflow_role = "myRole"
+		cluster.service_role = "myRole"
 		cluster.tags = '[{"Key": "type", "Value": "example_profile" },{"Key": "env","Value": "prototype"}]'
 		session.add(cluster)
 		session.commit()

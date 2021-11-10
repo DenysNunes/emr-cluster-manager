@@ -21,6 +21,7 @@ class Instance(BaseModel):
 class Cluster(BaseModel):
 	cluster_profile : str
 	bootstrap_path : str
+	log_path : str
 	slave_core_count_ondemand : int	
 	slave_task_count_ondemand : int
 	slave_task_count_spot : int
@@ -33,6 +34,8 @@ class Cluster(BaseModel):
 	glue_hive_metastore : bool
 	glue_presto_metastore : bool
 	release_label : str
+	jobflow_role : str
+	service_role : str
 	tags : str
 
 	class Config:
