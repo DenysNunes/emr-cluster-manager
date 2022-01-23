@@ -1,4 +1,4 @@
-# emr-cluster-manager
+# WIP: emr-cluster-manager
 
 A simple tool for EMR cluster management. 
 
